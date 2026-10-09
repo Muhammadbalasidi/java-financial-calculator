@@ -1,13 +1,25 @@
-package main;
-import models.SimpleInterest;
 import java.math.BigDecimal;
+import models.CompoundInterest;
+
 public class Main {
-  public static void main(String[]args){
-    BigDecimal p = BigDecimal.valueOf(100);
-    BigDecimal r = BigDecimal.valueOf(10);
-    BigDecimal t = BigDecimal.valueOf(10);
-   SimpleInterest simpleInterest = new SimpleInterest();
-    BigDecimal result = simpleInterest.simpleInterest(p,r,t);
-    System.out.println(result.toPlainString());
-  }
+    public static void main(String[] args) {
+        CompoundInterest calculator = new CompoundInterest();
+
+        BigDecimal principal = new BigDecimal("10000");
+        BigDecimal rate = new BigDecimal("10");
+
+        int years = 2;
+        int compoundPerYear = 1;
+
+        CompoundInterest.Result result = calculator.calculate(
+            principal,
+            rate,
+            years,
+            compoundPerYear
+        );
+
+        System.out.println("Principal: " + principal);
+        System.out.println("Final Amount: " + result.getFinalAmount());
+        System.out.println("Interest Earned: " + result.getInterestEarned());
+    }
 }

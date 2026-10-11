@@ -15,17 +15,26 @@ package models;
                          /*r*/     BigDecimal rate,
                            /*t*/   int years,
                            /*n*/   int compoundPerYear){
+                              /* 100n */
        BigDecimal periodsPerHundred = BigDecimal.valueOf(100L * compoundPerYear);
+                              /*nt*/
        int totalPeriods = compoundPerYear*years;
+                                  /*r/100n*/
        BigDecimal periodicRates = rate.divide(periodsPerHundred,MathContext.DECIMAL128);
+                                  /*1+(r/100n)*/
        BigDecimal growthFactor = BigDecimal.ONE.add(periodicRates);
+                                    /*p(1+(r/100n))^nt*/
        BigDecimal finalAmount = principal.multiply(growthFactor.pow(totalPeriods,MathContext.DECIMAL128));
+                                        /* CompoundInterestfomula*/
        BigDecimal interestEarned = finalAmount.subtract(principal);
       return new Result(finalAmount,interestEarned);
     }
     public static class  Result{
    private final BigDecimal finalAmount;
    private final BigDecimal interestEarned;
+          /*constructor mapping
+      the var inside(this) the class
+            and outside*/
       public Result(BigDecimal finalAmount,BigDecimal interestEarned){
         this.finalAmount = finalAmount;
         this.interestEarned = interestEarned;
